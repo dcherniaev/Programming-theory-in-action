@@ -26,8 +26,18 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        PlayerInput();
+        SetPowerupPositionOffset();
+    }
+
+    void PlayerInput()
+    {
         float forwardInput = Input.GetAxis("Vertical");
         playerRB.AddForce(focalPoint.transform.forward * forwardInput * speed);
+    }
+
+    void SetPowerupPositionOffset()
+    {
         powerupIndicatorForce.transform.position = transform.position + new Vector3(0, -0.5f, 0);
         powerupIndicatorJump.transform.position = transform.position + new Vector3(0, -0.5f, 0);
     }

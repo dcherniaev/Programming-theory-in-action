@@ -4,14 +4,14 @@ using UnityEngine;
 
 public class SpawnManager : MonoBehaviour
 {
-    
-    
+
+
     public GameObject[] enemyPrefab;
     public GameObject[] powerupPrefab;
     public GameObject bossPrefab;
 
-    public int enemyCount;
-    public int waveNumber = 1;
+    private int enemyCount;
+    private int waveNumber = 1;
 
     private float spawnRange = 9.0f;
 
@@ -25,6 +25,11 @@ public class SpawnManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        WaveCounter();
+    }
+
+    void WaveCounter()
+    {
         enemyCount = FindObjectsOfType<Enemy>().Length;
         if (enemyCount == 0)
         {
@@ -36,14 +41,11 @@ public class SpawnManager : MonoBehaviour
             else
             {
                 SpawnEnemyWave(waveNumber);
-
             }
 
             int whichPowerup = Random.Range(0, powerupPrefab.Length);
             Instantiate(powerupPrefab[whichPowerup], GenerateSpawnPosition(), powerupPrefab[whichPowerup].transform.rotation);
         }
-
-
     }
 
     void SpawnEnemyWave(int enemiesToSpawn)
@@ -57,7 +59,7 @@ public class SpawnManager : MonoBehaviour
 
     void SpawnBoss()
     {
-            Instantiate(bossPrefab, GenerateSpawnPosition(), bossPrefab.transform.rotation);
+        Instantiate(bossPrefab, GenerateSpawnPosition(), bossPrefab.transform.rotation);
     }
 
 

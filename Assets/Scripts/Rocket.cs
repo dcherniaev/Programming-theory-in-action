@@ -4,26 +4,40 @@ using UnityEngine;
 
 public class Rocket : MonoBehaviour
 {
-    public float speed = 5;
-    public float borders = 20;
-
+    [SerializeField]
+    private float speed = 5;
+    private float borders = 20;
     private Rigidbody rocketRB;
 
     // Start is called before the first frame update
     void Start()
     {
-        rocketRB = GetComponent<Rigidbody>();
+        GetRigidbody();
     }
 
     // Update is called once per frame
     void Update()
     {
-        GameObject.FindGameObjectsWithTag("Enemy");
-        rocketRB.AddForce (transform.forward * speed, ForceMode.Impulse);
+        LaunchRocket();
+        DestroyOutOfBounds();
+    }
 
+    void GetRigidbody()
+    {
+        rocketRB = GetComponent<Rigidbody>();
+    }
+
+    void LaunchRocket()
+    {
+        rocketRB.AddForce(transform.forward * speed, ForceMode.Impulse);
+    }
+
+    void DestroyOutOfBounds()
+    {
         if (transform.position.x > borders | transform.position.x < -borders | transform.position.z > borders | transform.position.z < -borders)
         {
             Destroy(gameObject);
         }
     }
+
 }
