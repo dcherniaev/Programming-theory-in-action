@@ -4,26 +4,48 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
-    public float speed;
+    [SerializeField]
+    private float speed;
+    
     private Rigidbody enemyRB;
-    private GameObject player;
+    protected GameObject player;
 
     // Start is called before the first frame update
     void Start()
     {
-        enemyRB = GetComponent<Rigidbody>();
-        player = GameObject.Find("Player");
+        GetRigidbody();
+        FindPlayer();
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
+    {
+        GoToPlayer();
+        DestroyWhenFall();
+    }
+
+    void FindPlayer()
+    {
+        player = GameObject.Find("Player");
+    }
+
+    void GetRigidbody()
+    {
+        enemyRB = GetComponent<Rigidbody>();
+    }
+
+    void GoToPlayer()
     {
         Vector3 lookDirection = (player.transform.position - transform.position).normalized;
         enemyRB.AddForce(lookDirection * speed);
+    }
 
+    void DestroyWhenFall()
+    {
         if (transform.position.y < -10)
         {
             Destroy(gameObject);
         }
     }
+
 }
