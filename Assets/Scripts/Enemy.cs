@@ -15,6 +15,7 @@ public class Enemy : MonoBehaviour
     {
         GetRigidbody();
         FindPlayer();
+        PrintMessage();
     }
 
     // Update is called once per frame
@@ -24,7 +25,7 @@ public class Enemy : MonoBehaviour
         DestroyWhenFall();
     }
 
-    void FindPlayer()
+    public virtual void FindPlayer()
     {
         player = GameObject.Find("Player");
     }
@@ -46,6 +47,12 @@ public class Enemy : MonoBehaviour
         {
             Destroy(gameObject);
         }
+    }
+
+    public virtual void PrintMessage()
+    {
+        string enemyName = this.gameObject.name;
+        Debug.Log(enemyName + " spawned");
     }
 
 }

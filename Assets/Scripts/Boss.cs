@@ -7,18 +7,12 @@ public class Boss : Enemy
     [SerializeField]
     private float strength = 7f;
 
-    IEnumerator BossForce() // add animation for pulse
+
+    public override void PrintMessage()
     {
-        yield return new WaitForSeconds(10);
-        PushThePlayerAway();
+        string enemyName = this.gameObject.name;
+        Debug.Log("BOSS spawned");
     }
 
-    void PushThePlayerAway()
-    {
-        Rigidbody playerRigidbody = player.GetComponent<Rigidbody>();
-        Vector3 awayFromBoss = (transform.position - player.transform.position);
-        playerRigidbody.AddForce(awayFromBoss * strength / awayFromBoss.magnitude, ForceMode.Impulse);
-
-    }
 }
 
